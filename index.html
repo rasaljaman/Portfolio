@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rasal Jaman</title>
+    <meta name="description" content="Portfolio of Rasal Jaman - Computer Engineering Student & Cybersecurity Enthusiast">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="#home" class="logo">Rasal Jaman</a>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <span class="hamburger"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Hi, I'm <span class="accent">Rasal Jaman</span></h1>
+                    <h2>Aspiring Cybersecurity Professional & Frontend Developer</h2>
+                    <p>Currently pursuing a diploma in Computer Engineering with a focus on cybersecurity and web development. 
+                       Passionate about creating secure, beautiful, and functional web applications.</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">Contact Me</a>
+                        <a href="#projects" class="btn btn-secondary">View My Work</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                        <img src="3d-avatar.avif" alt="" class="avatar">
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">About <span class="accent">Me</span></h2>
+                <div class="about-content">
+                    <p>I am Rasal Jaman, a computer engineering diploma student with a passion for cybersecurity and web development. My journey in technology began with learning HTML and CSS, which quickly expanded to include JavaScript and Python.</p>
+                    <p>My primary interest lies in cybersecurity, where I am developing skills in network security, vulnerability assessment, and secure coding practices.</p>
+                    <div class="about-grid">
+                        <div class="about-card">
+                            <h3>Career Objective</h3>
+                            <p>To secure a position in cybersecurity where I can utilize my technical skills and knowledge to protect digital assets and implement robust security measures.</p>
+                        </div>
+                        <div class="about-card">
+                            <h3>Interests</h3>
+                            <ul>
+                                <li>Network Security</li>
+                                <li>Vulnerability Assessment</li>
+                                <li>Front-end Development</li>
+                                <li>Ethical Hacking</li>
+                                <li>Open Source Contributions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2 class="section-title">My <span class="accent">Skills</span></h2>
+                <div class="skills-filters">
+                    <button class="skill-filter active" data-filter="all">All</button>
+                    <button class="skill-filter" data-filter="frontend">Frontend</button>
+                    <button class="skill-filter" data-filter="language">Languages</button>
+                    <button class="skill-filter" data-filter="security">Security</button>
+                </div>
+                <div class="skills-grid" id="skills-grid">
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2 class="section-title">My <span class="accent">Projects</span></h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg" alt="Cybersecurity Blog">
+                        <div class="project-content">
+                            <h3>Cybersecurity Blog</h3>
+                            <p>A personal blog focused on cybersecurity topics and best practices.</p>
+                            <div class="project-tags">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg" alt="Portfolio Website">
+                        <div class="project-content">
+                            <h3>Portfolio Website</h3>
+                            <p>A professional portfolio showcasing my skills and projects.</p>
+                            <div class="project-tags">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="experience">
+            <div class="container">
+                <h2 class="section-title">Experience & <span class="accent">Education</span></h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Diploma in Computer Engineering</h3>
+                            <p class="timeline-date">2021 - Present</p>
+                            <p>Technical Institute</p>
+                            <p>Studying computer engineering with focus on cybersecurity.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Web Development Intern</h3>
+                            <p class="timeline-date">May 2023 - August 2023</p>
+                            <p>TechSolutions Inc.</p>
+                            <p>Worked on front-end development and secure coding practices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
+                <div class="contact-grid">
+                    <div class="contact-form">
+                        <h3>Send Me a Message</h3>
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Your Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <div>
+                                    <h4>Email</h4>
+                                    <a href="mailto:contact@rasaljaman.com">contact@rasaljaman.com</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <div>
+                                    <h4>Location</h4>
+                                    <p>City, Country</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://github.com/rasaljaman" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="https://linkedin.com/in/rasaljaman" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="current-year">2024</span> Rasal Jaman. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
