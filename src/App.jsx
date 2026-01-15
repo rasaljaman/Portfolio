@@ -39,6 +39,20 @@ function App() {
         
         {/* --- HERO SECTION --- */}
         <section className="min-h-[80vh] flex flex-col justify-center mb-20">
+          
+          {/* ----- NEW PROFILE PICTURE BLOCK ----- */}
+          <div className="mb-8 relative">
+            {/* The glow effect behind the image */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-blue-600 blur-[40px] opacity-30 rounded-full"></div>
+            {/* The image itself */}
+            <img
+              src="/3d-avatar.avif"
+              alt="Rasal Jaman Avatar"
+              className="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-cyan-500/50 object-cover shadow-2xl shadow-cyan-500/20"
+            />
+          </div>
+          {/* ------------------------------------- */}
+
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-6 w-fit animate-pulse">
             <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
             2nd Year Computer Engineering Student
