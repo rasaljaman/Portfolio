@@ -1,257 +1,347 @@
 import { useState, useEffect } from "react";
-import { 
-  Github, Linkedin, Mail, MapPin, 
-  ExternalLink, Code, Shield, Terminal, 
-  ChevronDown, Database, Layout, Calculator, 
-  Lock, AlertCircle, GraduationCap 
+import { motion, useScroll, useTransform } from "framer-motion";
+import Typewriter from "typewriter-effect";
+import {
+  Code2, Shield, Bot, Terminal as TermIcon,
+  Github, Linkedin, Mail, ExternalLink, Instagram,
+  ChevronRight, Database, Layout, Globe, Cpu
 } from "lucide-react";
 
-function App() {
+export default function App() {
   const [scrolled, setScrolled] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 1000], [0, 200]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    
+    const moveCursor = (e) => {
+      setCursorPos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", moveCursor);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", moveCursor);
+    };
   }, []);
 
-  return (
-    <div className="min-h-screen relative">
-      {/* Background Effects */}
-      <div className="fixed inset-0 bg-grid-pattern z-0 pointer-events-none"></div>
-      <div className="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-[#030712] z-0 pointer-events-none"></div>
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  };
 
-      {/* --- NAVIGATION --- */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#030712]/80 backdrop-blur-md border-b border-white/5 py-4' : 'py-6'}`}>
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  return (
+    <div className="min-h-screen relative font-sans text-slate-300">
+      <div className="cinematic-overlay"></div>
+      
+      {/* Custom Cursor */}
+      <div 
+        className="custom-cursor hidden md:block"
+        style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}
+      />
+
+      {/* Cyber Background */}
+      <div className="fixed inset-0 bg-dot-matrix z-[-1] pointer-events-none opacity-50" />
+      <div className="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-cyber-cyan/10 rounded-full blur-[150px] z-[-1] pointer-events-none" />
+      <div className="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-cyber-purple/10 rounded-full blur-[150px] z-[-1] pointer-events-none" />
+
+      {/* 1. NAVBAR */}
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent ${scrolled ? 'glass py-4' : 'py-6'}`}>
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-          <div className="font-bold text-xl tracking-tighter flex items-center gap-2">
-            <span className="text-cyan-500 font-mono">&lt;Rasal/&gt;</span>
-          </div>
-          <div className="flex gap-6 text-sm font-medium text-slate-400">
-            <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
-            <a href="#about" className="hover:text-cyan-400 transition-colors">About</a>
-            <a href="#contact" className="hidden md:block hover:text-cyan-400 transition-colors">Contact</a>
+          <span className="text-cyber-cyan font-mono font-bold text-xl tracking-tighter text-glow">
+            Rasal_Jaman<span className="animate-pulse">_</span>
+          </span>
+          <div className="hidden md:flex gap-8 text-sm font-mono text-slate-400">
+            <a href="#about" className="hover:text-cyber-cyan transition-colors">./about</a>
+            <a href="#skills" className="hover:text-cyber-cyan transition-colors">./skills</a>
+            <a href="#projects" className="hover:text-cyber-cyan transition-colors">./projects</a>
+            <a href="#cyber" className="hover:text-cyber-cyan transition-colors">./cybersecurity</a>
+            <a href="#contact" className="hover:text-cyber-cyan transition-colors">./contact</a>
           </div>
         </div>
       </nav>
 
-      <main className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20">
-        
-        {/* --- HERO SECTION --- */}
-        <section className="min-h-[80vh] flex flex-col justify-center mb-20">
-          
-          {/* ----- NEW PROFILE PICTURE BLOCK ----- */}
-          <div className="mb-8 relative">
-            {/* The glow effect behind the image */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-blue-600 blur-[40px] opacity-30 rounded-full"></div>
-            {/* The image itself */}
-            <img
-              src="/3d-avatar.avif"
-              alt="Rasal Jaman Avatar"
-              className="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-cyan-500/50 object-cover shadow-2xl shadow-cyan-500/20"
-            />
-          </div>
-          {/* ------------------------------------- */}
+      {/* 2. HERO */}
+      <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <motion.div style={{ y: heroY }} className="absolute inset-0 z-0 flex justify-center items-center pointer-events-none">
+           {/* Floating Orbs */}
+           <div className="absolute w-[300px] h-[300px] bg-cyber-cyan/20 rounded-full blur-[80px] animate-float" style={{ animationDelay: '0s', top: '20%', left: '20%' }}></div>
+           <div className="absolute w-[250px] h-[250px] bg-cyber-purple/20 rounded-full blur-[80px] animate-float" style={{ animationDelay: '2s', bottom: '20%', right: '20%' }}></div>
+        </motion.div>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-6 w-fit animate-pulse">
-            <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
-            2nd Year Computer Engineering Student
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-            Building the <span className="text-glow">Future</span> <br />
-            Securing the <span className="text-white">Present</span>.
-          </h1>
-          
-          <p className="text-slate-400 text-lg md:text-xl max-w-2xl leading-relaxed mb-8">
-            I'm <strong className="text-white">Rasal Jaman</strong>, currently pursuing my Diploma at <span className="text-cyan-400">AKNM Govt Polytechnic, Thirurangadi</span>. While I have a strong grip on Frontend Development, my true passion lies in exploring the depths of <span className="text-white">Cybersecurity</span>.
-          </p>
-
-          <div className="flex flex-wrap gap-4">
-            <a href="#projects" className="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-medium rounded-lg transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2">
-              View My Work <ChevronDown size={18} />
-            </a>
-            <a href="https://github.com/rasaljaman" target="_blank" className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium rounded-lg transition-all flex items-center gap-2">
-              <Github size={18} /> GitHub
-            </a>
-          </div>
-        </section>
-
-
-        {/* --- SKILLS GRID --- */}
-        <section id="skills" className="mb-32">
-          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
-            <Code className="text-cyan-500" /> Technical Arsenal
-          </h2>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 bg-white/5 border border-white/5 rounded-xl hover:border-cyan-500/30 transition-colors">
-              <Shield className="text-cyan-400 mb-3" size={32} />
-              <h3 className="font-bold text-lg mb-1">Security Basics</h3>
-              <p className="text-sm text-slate-400">Network Fundamentals, Linux (Kali/Termux), Vulnerability Concepts.</p>
+        <div className="z-10 text-center max-w-4xl px-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 1.5 }}
+          >
+            <p className="font-mono text-cyber-cyan mb-4 tracking-widest text-sm md:text-base">SYSTEM INIT // WELCOME</p>
+            <h1 className="text-5xl md:text-8xl font-bold font-mono text-white mb-6 tracking-tight">
+              Rasal Jaman
+            </h1>
+            <div className="text-xl md:text-3xl font-mono text-slate-400 mb-10 h-10 flex justify-center items-center gap-3">
+              <span className="text-cyber-purple">&gt;</span>
+              <Typewriter
+                options={{
+                  strings: ['React Developer', 'Vibe Coder', 'Cybersecurity Enthusiast'],
+                  autoStart: true,
+                  loop: true,
+                  delay: 50,
+                  deleteSpeed: 30,
+                  cursorClassName: 'text-cyber-cyan animate-pulse'
+                }}
+              />
             </div>
-            <div className="p-4 bg-white/5 border border-white/5 rounded-xl hover:border-blue-500/30 transition-colors">
-              <Layout className="text-blue-400 mb-3" size={32} />
-              <h3 className="font-bold text-lg mb-1">Frontend</h3>
-              <p className="text-sm text-slate-400">React.js, Tailwind CSS, HTML5, CSS3, Vite</p>
+
+            <div className="flex flex-wrap justify-center gap-6">
+              <a href="#projects" className="glass px-8 py-4 rounded-none font-mono text-cyber-cyan hover:bg-cyber-cyan/10 transition-colors border-cyber-cyan/30 hover:border-cyber-cyan group flex items-center gap-2">
+                View Projects <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a href="#contact" className="glass px-8 py-4 rounded-none font-mono text-white hover:bg-white/5 transition-colors">
+                Contact Me
+              </a>
             </div>
-            <div className="p-4 bg-white/5 border border-white/5 rounded-xl hover:border-yellow-500/30 transition-colors">
-              <Terminal className="text-yellow-400 mb-3" size={32} />
-              <h3 className="font-bold text-lg mb-1">Tools</h3>
-              <p className="text-sm text-slate-400">VS Code, Termux, Git, Burp Suite (Learning)</p>
-            </div>
-             <div className="p-4 bg-white/5 border border-white/5 rounded-xl hover:border-green-500/30 transition-colors">
-              <Database className="text-green-400 mb-3" size={32} />
-              <h3 className="font-bold text-lg mb-1">Backend</h3>
-              <p className="text-sm text-slate-400">Supabase, SQL Basics</p>
-            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <main className="max-w-6xl mx-auto px-6 space-y-40 pb-40">
+        {/* 3. ABOUT */}
+        <motion.section 
+          id="about" 
+          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+          variants={fadeUp}
+        >
+          <div className="flex items-center gap-4 mb-12">
+             <span className="text-cyber-cyan font-mono text-2xl">01.</span>
+             <h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-wider">About Identity</h2>
+             <div className="h-px bg-white/10 flex-1 ml-4" />
           </div>
-        </section>
 
-
-        {/* --- PROJECTS --- */}
-        <section id="projects" className="mb-32">
-          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
-            <Layout className="text-cyan-500" /> Projects
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-5 gap-12 items-center">
+            <div className="md:col-span-2 flex justify-center">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-cyber-cyan rounded-full blur-[20px] opacity-30 group-hover:opacity-50 transition-opacity duration-500 animate-pulse"></div>
+                <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-cyber-cyan/50 p-2 glass">
+                  <img src="/3d-avatar.avif" alt="Profile" className="w-full h-full rounded-full object-cover" />
+                </div>
+              </div>
+            </div>
             
-            {/* Project 1: ProGall (LIVE & CLICKABLE) */}
-            <a 
-              href="https://progall.tech" 
-              target="_blank" 
-              className="group relative bg-slate-900 border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300 block"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="p-8">
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-cyan-500/10 rounded-lg text-cyan-400"><Layout size={24} /></div>
-                  <span className="text-cyan-400 group-hover:text-white flex items-center gap-2 text-sm font-mono border border-cyan-500/30 px-3 py-1 rounded-full bg-cyan-500/10 group-hover:bg-cyan-500 group-hover:border-cyan-500 transition-colors">
-                    Visit Site <ExternalLink size={14} />
-                  </span>
-                </div>
-                <h3 className="text-2xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">ProGall.tech</h3>
-                <p className="text-slate-400 mb-6">
-                  A high-performance AI prompt gallery. Features a masonry layout for cinematic prompts.
-                </p>
-                <div className="flex flex-wrap gap-2 font-mono text-xs text-cyan-300">
-                  <span className="bg-cyan-950 px-2 py-1 rounded">React</span>
-                  <span className="bg-cyan-950 px-2 py-1 rounded">Tailwind</span>
-                </div>
-              </div>
-            </a>
-
-            {/* Project 2: Simple Counter (LIVE & CLICKABLE) */}
-            <a 
-              href="https://rasaljaman.github.io/simple-counter/" 
-              target="_blank" 
-              className="group relative bg-slate-900 border border-white/10 rounded-2xl overflow-hidden hover:border-yellow-500/50 hover:shadow-2xl hover:shadow-yellow-500/10 transition-all duration-300 block"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="p-8">
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-yellow-500/10 rounded-lg text-yellow-400"><Calculator size={24} /></div>
-                  <span className="text-yellow-400 group-hover:text-white flex items-center gap-2 text-sm font-mono border border-yellow-500/30 px-3 py-1 rounded-full bg-yellow-500/10 group-hover:bg-yellow-500 group-hover:border-yellow-500 transition-colors">
-                    View Demo <ExternalLink size={14} />
-                  </span>
-                </div>
-                <h3 className="text-2xl font-bold mb-2 group-hover:text-yellow-400 transition-colors">Simple Counter</h3>
-                <p className="text-slate-400 mb-6">
-                  A clean React counter app demonstrating state management and hooks.
-                </p>
-                <div className="flex flex-wrap gap-2 font-mono text-xs text-yellow-300">
-                  <span className="bg-yellow-950 px-2 py-1 rounded">React Hooks</span>
-                  <span className="bg-yellow-950 px-2 py-1 rounded">GH Pages</span>
-                </div>
-              </div>
-            </a>
-
-            {/* Project 3: Car Rental (NOT CLICKABLE - COMING SOON) */}
-            <div className="md:col-span-2 group relative bg-slate-900/50 border border-white/5 rounded-2xl overflow-hidden transition-all duration-300">
-              <div className="p-8 flex flex-col md:flex-row gap-8 items-center">
-                <div className="flex-1 opacity-70">
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="p-3 bg-gray-700/50 rounded-lg text-gray-400"><Lock size={24} /></div>
-                    <span className="flex items-center gap-2 text-xs font-mono text-orange-400 bg-orange-900/20 px-3 py-1 rounded-full border border-orange-500/30">
-                      <AlertCircle size={12} /> In Development
-                    </span>
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2 text-gray-300">Rental Dashboard</h3>
-                  <p className="text-slate-500 mb-6">
-                    Full-stack car booking system with Supabase backend.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-
-        {/* --- EDUCATION & EXPERIENCE --- */}
-        <section id="about" className="mb-32">
-          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
-            <GraduationCap className="text-cyan-500" /> My Journey
-          </h2>
-          
-          <div className="space-y-8">
-            
-            {/* Education Card */}
-            <div className="relative border-l-2 border-white/10 pl-8 pb-2">
-              <span className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]"></span>
-              <div className="mb-1 flex items-center gap-3">
-                <h3 className="text-xl font-bold text-white">Diploma in Computer Engineering</h3>
-                <span className="text-xs bg-cyan-900/30 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/20">Current</span>
-              </div>
-              <p className="text-cyan-400 font-mono text-sm mb-2">AKNM Govt Polytechnic College, Thirurangadi • 2024 - Present</p>
-              <p className="text-slate-400">
-                Currently in <strong className="text-white">2nd Year</strong>. Focusing on core computer science fundamentals, networking, and operating systems.
+            <div className="md:col-span-3 space-y-6 glass p-8 rounded-2xl border-white/5">
+              <p className="text-lg leading-relaxed text-slate-300">
+                I am a Computer Engineering diploma student based in <span className="text-white font-semibold">Kerala, India</span>. 
+                My development workflow is deeply integrated with AI—a methodology often referred to as <span className="text-cyber-cyan font-mono">"vibe coding"</span>.
               </p>
-            </div>
-
-            {/* Experience Card */}
-            <div className="relative border-l-2 border-white/10 pl-8">
-              <span className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-slate-800 border-2 border-slate-600"></span>
-              <h3 className="text-xl font-bold text-white">Web Development Intern</h3>
-              <p className="text-slate-400 font-mono text-sm mb-2">Novox • Calicut • 2023</p>
-              <p className="text-slate-500">
-                Gained initial industry exposure by working on responsive web interfaces and optimizing frontend performance.
+              <p className="text-lg leading-relaxed text-slate-300">
+                By leveraging tools like <strong className="text-cyber-purple">ChatGPT, Claude, and Gemini</strong> alongside IDE agents like Cursor and Antigravity, I accelerate development, solve complex architectural problems, and enhance my creativity without getting bogged down by boilerplate syntax.
               </p>
+              <div className="inline-block mt-4">
+                <span className="glass px-4 py-2 text-xs font-mono text-cyber-cyan flex items-center gap-2">
+                   <Bot size={14} /> AI-Assisted Developer
+                </span>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* 4. SKILLS */}
+        <motion.section 
+          id="skills"
+          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+        >
+          <div className="flex items-center gap-4 mb-12">
+             <span className="text-cyber-cyan font-mono text-2xl">02.</span>
+             <h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-wider">Tech Arsenal</h2>
+             <div className="h-px bg-white/10 flex-1 ml-4" />
+          </div>
+
+          <motion.div variants={staggerContainer} className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { icon: <Layout />, name: "HTML/CSS" },
+              { icon: <Code2 />, name: "JavaScript" },
+              { icon: <Code2 />, name: "React.js" },
+              { icon: <Database />, name: "Supabase" },
+              { icon: <Cpu />, name: "Python" },
+              { icon: <Github />, name: "GitHub" },
+              { icon: <Globe />, name: "Vercel" },
+              { icon: <TermIcon />, name: "VS Code" },
+              { icon: <Bot />, name: "Cursor" },
+              { icon: <Bot />, name: "Antigravity" },
+              { icon: <Bot />, name: "ChatGPT/Claude" },
+              { icon: <Shield />, name: "Security Basics" }
+            ].map((skill, i) => (
+              <motion.div 
+                key={i} 
+                variants={fadeUp}
+                className="glass-card p-6 flex flex-col items-center justify-center text-center gap-4 animate-float"
+                style={{ animationDelay: `${i * 0.2}s` }}
+              >
+                <div className="text-cyber-cyan drop-shadow-[0_0_8px_rgba(0,245,255,0.8)]">{skill.icon}</div>
+                <span className="font-mono text-sm text-slate-300">{skill.name}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.section>
+
+        {/* 5. PROJECTS */}
+        <motion.section 
+          id="projects"
+          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+          variants={fadeUp}
+        >
+          <div className="flex items-center gap-4 mb-12">
+             <span className="text-cyber-cyan font-mono text-2xl">03.</span>
+             <h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-wider">Featured Protocol</h2>
+             <div className="h-px bg-white/10 flex-1 ml-4" />
+          </div>
+
+          <div className="flex flex-col gap-8">
+            <div className="glass shadow-[0_0_30px_rgba(0,245,255,0.05)] border border-cyber-cyan/20 rounded-3xl p-8 md:p-12 relative overflow-hidden group">
+               {/* Glow effect on hover */}
+               <div className="absolute inset-0 bg-gradient-to-br from-cyber-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+               
+               <div className="relative z-10">
+                 <div className="font-mono text-cyber-cyan text-sm mb-4">Latest Deployment</div>
+                 <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">Progall.tech</h3>
+                 
+                 <p className="text-lg text-slate-300 max-w-2xl mb-8 leading-relaxed">
+                   A modern full-stack web app built with vibe coding methodology. It serves as an AI prompt gallery featuring a masonry layout, built seamlessly end-to-end to demonstrate modern deployment workflows.
+                 </p>
+
+                 <div className="flex flex-wrap gap-3 mb-10">
+                   {["React.js", "Supabase", "Vercel", "AI-assisted"].map(tag => (
+                     <span key={`progall-${tag}`} className="font-mono text-xs px-3 py-1 bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/30 rounded-none">
+                       {tag}
+                     </span>
+                   ))}
+                 </div>
+
+                 <a href="https://progall.tech" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-cyber-cyan text-[#0A0A0F] font-bold font-mono px-6 py-3 hover:shadow-[0_0_20px_rgba(0,245,255,0.6)] transition-all cursor-none relative z-20">
+                   INITIALIZE LINK <ExternalLink size={18} />
+                 </a>
+               </div>
             </div>
 
-          </div>
-        </section>
+            <div className="glass shadow-[0_0_30px_rgba(123,47,190,0.05)] border border-cyber-purple/20 rounded-3xl p-8 md:p-12 relative overflow-hidden group">
+               {/* Glow effect on hover */}
+               <div className="absolute inset-0 bg-gradient-to-br from-cyber-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+               
+               <div className="relative z-10">
+                 <div className="font-mono text-cyber-purple text-sm mb-4">College Project</div>
+                 <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">Sura Rentals</h3>
+                 
+                 <p className="text-lg text-slate-300 max-w-2xl mb-8 leading-relaxed">
+                   A comprehensive car rental system built as a college project. Incorporates secure user authentication, database management, and responsive UI components for seamless booking operations.
+                 </p>
 
+                 <div className="flex flex-wrap gap-3 mb-10">
+                   {["React", "Full-stack", "Vercel", "Database"].map(tag => (
+                     <span key={`sura-${tag}`} className="font-mono text-xs px-3 py-1 bg-cyber-purple/20 text-cyber-purple border border-cyber-purple/30 rounded-none">
+                       {tag}
+                     </span>
+                   ))}
+                 </div>
 
-        {/* --- FOOTER --- */}
-        <footer id="contact" className="border-t border-white/10 pt-12 pb-8 text-center">
-          <h2 className="text-3xl font-bold mb-6">Let's Connect</h2>
-          <p className="text-slate-400 mb-8">Open to internships and learning opportunities.</p>
-          
-          <div className="flex justify-center gap-6 mb-12">
-            <a href="mailto:contact@rasaljaman.com" className="flex items-center gap-2 text-white hover:text-cyan-400 transition-colors">
-              <Mail size={20} /> Email
-            </a>
-            <a href="https://linkedin.com/in/rasaljaman" className="flex items-center gap-2 text-white hover:text-cyan-400 transition-colors">
-              <Linkedin size={20} /> LinkedIn
-            </a>
-            <a href="https://github.com/rasaljaman" className="flex items-center gap-2 text-white hover:text-cyan-400 transition-colors">
-              <Github size={20} /> GitHub
-            </a>
-          </div>
-          
-          <div className="flex flex-col items-center gap-2 text-slate-600 text-sm font-mono">
-            <div className="flex items-center gap-2">
-               <MapPin size={14} /> Chelari, Thirurangadi
+                 <a href="https://sura-rentals.vercel.app/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-cyber-purple text-white font-bold font-mono px-6 py-3 hover:shadow-[0_0_20px_rgba(123,47,190,0.6)] transition-all cursor-none relative z-20">
+                   INITIALIZE LINK <ExternalLink size={18} />
+                 </a>
+               </div>
             </div>
-            <span>© 2026 Rasal Jaman</span>
           </div>
-        </footer>
+        </motion.section>
 
+        {/* 6. CYBERSECURITY */}
+        <motion.section 
+          id="cyber"
+          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+          variants={fadeUp}
+        >
+           <div className="flex items-center gap-4 mb-12">
+             <span className="text-cyber-cyan font-mono text-2xl">04.</span>
+             <h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-wider">Sys/Admin Interests</h2>
+             <div className="h-px bg-white/10 flex-1 ml-4" />
+          </div>
+
+          <div className="bg-[#050508] border border-white/10 rounded-lg overflow-hidden font-mono text-sm md:text-base shadow-2xl">
+            <div className="bg-[#111116] border-b border-white/10 px-4 py-3 flex gap-2">
+               <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+               <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+               <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+            </div>
+            <div className="p-6 md:p-8 space-y-4 text-green-500">
+               <p><span className="text-slate-500">rasal@kali:~$</span> whoami</p>
+               <p className="text-slate-300">Rasal Jaman - Cybersecurity Enthusiast</p>
+               
+               <p className="pt-4"><span className="text-slate-500">rasal@kali:~$</span> cat interests.txt</p>
+               <ul className="list-none space-y-2 text-cyber-cyan">
+                 <li>[+] Ethical Hacking: Exploring vulnerabilities & securing systems.</li>
+                 <li>[+] OSINT (Open Source Intelligence): Profiling and threat analysis.</li>
+                 <li>[+] AI Tools: Prompt engineering for red-team reconnaissance.</li>
+               </ul>
+
+               <p className="pt-4"><span className="text-slate-500">rasal@kali:~$</span> status</p>
+               <p className="text-slate-300">Active / Always learning.</p>
+               
+               <p className="pt-4 flex items-center">
+                 <span className="text-slate-500">rasal@kali:~$</span> <span className="w-2 h-5 bg-green-500 ml-2 animate-pulse"></span>
+               </p>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* 7. CONTACT */}
+        <motion.section 
+          id="contact"
+          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+          variants={fadeUp}
+          className="pb-20"
+        >
+          <div className="flex items-center gap-4 mb-12">
+             <span className="text-cyber-cyan font-mono text-2xl">05.</span>
+             <h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-wider">Establish Connection</h2>
+             <div className="h-px bg-white/10 flex-1 ml-4" />
+          </div>
+
+          <div className="max-w-2xl mx-auto glass p-8 md:p-12 rounded-2xl relative">
+             <form className="space-y-6 relative z-10" onSubmit={(e) => e.preventDefault()}>
+               <div>
+                 <label className="block font-mono text-xs text-slate-400 mb-2 uppercase">Target Email</label>
+                 <input type="email" placeholder="you@domain.com" className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white font-mono focus:outline-none focus:border-cyber-cyan focus:shadow-[0_0_15px_rgba(0,245,255,0.3)] transition-all" />
+               </div>
+               <div>
+                 <label className="block font-mono text-xs text-slate-400 mb-2 uppercase">Payload (Message)</label>
+                 <textarea rows="4" placeholder="Hello..." className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white font-mono focus:outline-none focus:border-cyber-cyan focus:shadow-[0_0_15px_rgba(0,245,255,0.3)] transition-all" />
+               </div>
+               <button className="w-full glass py-4 font-mono text-cyber-cyan hover:bg-cyber-cyan/10 border-cyber-cyan/30 hover:border-cyber-cyan transition-all uppercase tracking-widest text-sm">
+                  Transmit Data
+               </button>
+             </form>
+             
+             <div className="mt-12 pt-8 border-t border-white/10 flex justify-center gap-8">
+                <a href="mailto:contact@rasaljaman.com" className="text-slate-400 hover:text-cyber-cyan hover:drop-shadow-[0_0_10px_rgba(0,245,255,0.8)] transition-all"><Mail size={24} /></a>
+                <a href="https://github.com/rasaljaman" className="text-slate-400 hover:text-cyber-cyan hover:drop-shadow-[0_0_10px_rgba(0,245,255,0.8)] transition-all"><Github size={24} /></a>
+                <a href="https://linkedin.com/in/rasaljaman" className="text-slate-400 hover:text-cyber-cyan hover:drop-shadow-[0_0_10px_rgba(0,245,255,0.8)] transition-all"><Linkedin size={24} /></a>
+                <a href="https://www.instagram.com/rasal_kzp/" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyber-cyan hover:drop-shadow-[0_0_10px_rgba(0,245,255,0.8)] transition-all"><Instagram size={24} /></a>
+             </div>
+          </div>
+        </motion.section>
       </main>
+      
+      <footer className="py-6 text-center border-t border-white/5 font-mono text-xs text-slate-500 bg-black/40">
+         © {new Date().getFullYear()} Rasal Jaman // Built with Vibe Coding
+      </footer>
     </div>
   );
 }
-
-export default App;

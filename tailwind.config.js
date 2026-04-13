@@ -6,24 +6,24 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        cyber: {
+          bg: '#0A0A0F',
+          cyan: '#00F5FF',
+          purple: '#7B2FBE',
+        }
+      },
       fontFamily: {
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
         sans: ['Inter', 'sans-serif'],
       },
-      colors: {
-        // iOS System Colors
-        'ios-bg': '#000000',
-        'ios-gray': '#1c1c1e',
-        'ios-blue': '#007aff',
-        'ios-green': '#34c759',
-        'ios-red': '#ff3b30',
-      },
       animation: {
-        'bounce-slight': 'bounce-slight 0.3s ease-in-out',
+        'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {
-        'bounce-slight': {
-          '0%, 100%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(0.98)' },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
         }
       }
     },
