@@ -1,114 +1,499 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Patrick+Hand&family=Source+Code+Pro:wght@400;500;600&family=Playfair+Display:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════
+   BASE STYLES — NOTEBOOK THEME
+   ═══════════════════════════════════════════════════ */
+
 :root {
-  --cyan: #00F5FF;
-  --purple: #7B2FBE;
-  --bg: #0A0A0F;
+  --paper: #FDF6E3;
+  --paper-dark: #F5EDDA;
+  --ink: #2D3250;
+  --ink-light: #676FA3;
+  --margin-red: #E74C3C;
+  --line-blue: #B8D4E3;
+  --highlight-yellow: #FFF9C4;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-light) var(--paper-dark);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--paper-dark);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--ink-light);
+  border-radius: 4px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  @apply bg-[#0A0A0F] text-slate-200 overflow-x-hidden;
-  font-family: 'Inter', sans-serif;
-  cursor: none; /* Custom cursor */
+  @apply bg-paper text-ink overflow-x-hidden;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 18px;
+  line-height: 1.8;
 }
 
-/* Headings */
-h1, h2, h3, h4, h5, h6, .font-mono {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-}
-
-/* Custom Selection */
+/* Custom selection */
 ::selection {
-  background: rgba(0, 245, 255, 0.2);
-  color: #00F5FF;
+  background: rgba(255, 249, 196, 0.7);
+  color: var(--ink);
 }
 
-/* Glow Text */
-.text-glow {
-  text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
 }
 
-.text-glow-purple {
-  text-shadow: 0 0 10px rgba(123, 47, 190, 0.5);
+/* ═══════════════════════════════════════════════════
+   NOTEBOOK PAGE STYLES
+   ═══════════════════════════════════════════════════ */
+
+.notebook-page {
+  position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    var(--line-blue) 31px,
+    var(--line-blue) 32px
+  );
+  background-size: 100% 32px;
+  background-position: 0 16px;
 }
 
-/* Glassmorphism utility */
-.glass {
-  @apply bg-black/40 backdrop-blur-md border border-white/10;
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
-}
-
-.glass-card {
-  @apply glass rounded-2xl relative overflow-hidden transition-all duration-300;
-}
-
-.glass-card:hover {
-  @apply border-cyan-500/50;
-  box-shadow: 0 0 20px rgba(0, 245, 255, 0.1), inset 0 0 20px rgba(0, 245, 255, 0.05);
-}
-
-/* Dot Matrix Background */
-.bg-dot-matrix {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* Custom Cursor */
-.custom-cursor {
-  width: 8px;
-  height: 8px;
-  background-color: var(--cyan);
-  border-radius: 50%;
-  position: fixed;
+.notebook-page::before {
+  content: '';
+  position: absolute;
+  left: 60px;
   top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan);
-  transition: width 0.2s, height 0.2s, background-color 0.2s;
-}
-
-/* Page Load Cinematic Sequence */
-.cinematic-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: #0A0A0F;
-  z-index: 10000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: fadeOut 1.5s ease-in-out 0.5s forwards;
+  bottom: 0;
+  width: 2px;
+  background: var(--margin-red);
+  opacity: 0.6;
+  z-index: 1;
   pointer-events: none;
 }
 
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
+@media (max-width: 768px) {
+  .notebook-page::before {
+    left: 24px;
   }
 }
 
-.cinematic-overlay::after {
-  content: "INITIALIZING SYSTEM...";
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--cyan);
-  font-size: 1.5rem;
-  letter-spacing: 0.2em;
-  text-shadow: 0 0 10px var(--cyan);
-  animation: pulse 1s infinite alternate;
+/* Hole punches on the left */
+.notebook-holes {
+  position: absolute;
+  left: 16px;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  z-index: 2;
+  pointer-events: none;
 }
 
-@keyframes pulse {
-  from { opacity: 0.5; }
-  to { opacity: 1; }
+.notebook-hole {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e8e0d0;
+  border: 2px solid #d0c8b8;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.15);
 }
 
-/* Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
+/* Paper texture overlay */
+.paper-texture {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ═══════════════════════════════════════════════════
+   STICKY NOTE CARD
+   ═══════════════════════════════════════════════════ */
+
+.sticky-note {
+  position: relative;
+  padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08);
+  transform: rotate(-1deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sticky-note:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 4px 8px 20px rgba(0,0,0,0.15);
+}
+
+.sticky-note::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 15%;
+  right: 15%;
+  height: 6px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+/* ═══════════════════════════════════════════════════
+   SVG DRAWING ANIMATIONS
+   ═══════════════════════════════════════════════════ */
+
+.svg-draw path,
+.svg-draw line,
+.svg-draw circle,
+.svg-draw polyline,
+.svg-draw polygon,
+.svg-draw rect {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  fill: none;
+}
+
+.svg-draw.animated path,
+.svg-draw.animated line,
+.svg-draw.animated circle,
+.svg-draw.animated polyline,
+.svg-draw.animated polygon,
+.svg-draw.animated rect {
+  animation: drawSVG 2s ease-in-out forwards;
+}
+
+@keyframes drawSVG {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.svg-draw.animated .svg-fill {
+  animation: fillIn 0.5s ease-out 1.8s forwards;
+}
+
+@keyframes fillIn {
+  to {
+    fill-opacity: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   SCROLL REVEAL CLASSES
+   ═══════════════════════════════════════════════════ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delay utilities */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+.delay-700 { transition-delay: 700ms; }
+.delay-800 { transition-delay: 800ms; }
+
+/* ═══════════════════════════════════════════════════
+   HANDWRITTEN UNDERLINE
+   ═══════════════════════════════════════════════════ */
+
+.hand-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hand-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  right: -4px;
+  height: 8px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8'%3E%3Cpath d='M0 5 Q25 2 50 5 T100 5 T150 5 T200 5' stroke='%23E74C3C' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+  background-size: 200px 8px;
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════════
+   TAPE EFFECT
+   ═══════════════════════════════════════════════════ */
+
+.tape {
+  position: relative;
+}
+
+.tape::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 80px;
+  height: 24px;
+  background: rgba(255, 249, 196, 0.7);
+  border: 1px solid rgba(0,0,0,0.05);
+  z-index: 2;
+}
+
+/* ═══════════════════════════════════════════════════
+   STAMP EFFECT
+   ═══════════════════════════════════════════════════ */
+
+.stamp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotate(-2deg);
+  opacity: 0.85;
+}
+
+/* ═══════════════════════════════════════════════════
+   GRAPH PAPER SECTION
+   ═══════════════════════════════════════════════════ */
+
+.graph-paper {
+  background-color: #f8f4ef;
+  background-image:
+    linear-gradient(rgba(184, 212, 227, 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 212, 227, 0.25) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* ═══════════════════════════════════════════════════
+   PENCIL / PEN ICON STYLES
+   ═══════════════════════════════════════════════════ */
+
+.ink-link {
+  position: relative;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.ink-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--margin-red);
+  transition: width 0.3s ease;
+}
+
+.ink-link:hover {
+  color: #3468C0;
+}
+
+.ink-link:hover::after {
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════════════════
+   FORM STYLES (Notebook form)
+   ═══════════════════════════════════════════════════ */
+
+.notebook-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--line-blue);
+  padding: 0.5rem 0;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.1rem;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.notebook-input:focus {
+  border-bottom-color: var(--margin-red);
+}
+
+.notebook-input::placeholder {
+  color: #bbb;
+  font-style: italic;
+}
+
+.notebook-textarea {
+  width: 100%;
+  background: transparent;
+  border: 2px solid var(--line-blue);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.1rem;
+  color: var(--ink);
+  outline: none;
+  resize: vertical;
+  min-height: 120px;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    var(--line-blue) 31px,
+    var(--line-blue) 32px
+  );
+  background-size: 100% 32px;
+  background-position: 0 8px;
+  line-height: 32px;
+  transition: border-color 0.3s ease;
+}
+
+.notebook-textarea:focus {
+  border-color: var(--margin-red);
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE OVERRIDES
+   ═══════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .sticky-note {
+    transform: rotate(0deg);
+  }
+
+  .stamp-badge {
+    transform: rotate(0deg);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   PAGE TRANSITION / SECTION DIVIDER
+   ═══════════════════════════════════════════════════ */
+
+.page-tear {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-tear::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 12'%3E%3Cpath d='M0 0 L20 12 L40 0 L60 12 L80 0 L100 12 L120 0 L140 12 L160 0 L180 12 L200 0 L220 12 L240 0 L260 12 L280 0 L300 12 L320 0 L340 12 L360 0 L380 12 L400 0 L420 12 L440 0 L460 12 L480 0 L500 12 L520 0 L540 12 L560 0 L580 12 L600 0 L620 12 L640 0 L660 12 L680 0 L700 12 L720 0 L740 12 L760 0 L780 12 L800 0 L820 12 L840 0 L860 12 L880 0 L900 12 L920 0 L940 12 L960 0 L980 12 L1000 0 L1020 12 L1040 0 L1060 12 L1080 0 L1100 12 L1120 0 L1140 12 L1160 0 L1180 12 L1200 0' fill='%23FDF6E3' stroke='none'/%3E%3C/svg%3E") repeat-x;
+  z-index: 2;
+}
+
+/* ═══════════════════════════════════════════════════
+   NAV TAB ACTIVE INDICATOR
+   ═══════════════════════════════════════════════════ */
+
+.nav-tab {
+  position: relative;
+  padding: 0.5rem 1rem;
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink-light);
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.nav-tab:hover {
+  color: var(--ink);
+}
+
+.nav-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0.5rem;
+  right: 0.5rem;
+  height: 3px;
+  background: var(--margin-red);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-tab:hover::after {
+  transform: scaleX(1);
+}
+
+/* ═══════════════════════════════════════════════════
+   DOODLE/ARCHITECTURAL SVG CONTAINER
+   ═══════════════════════════════════════════════════ */
+
+.doodle-container {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.doodle-container svg {
+  overflow: visible;
 }
