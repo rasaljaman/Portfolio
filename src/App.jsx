@@ -6,12 +6,16 @@ import Projects from './components/Projects';
 import CyberSection from './components/CyberSection';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import FloatingElements from './components/FloatingElements';
 
 export default function App() {
   return (
     <div className="min-h-screen bg-paper relative">
       {/* Paper texture overlay */}
       <div className="paper-texture" />
+
+      {/* Floating classroom elements — scroll parallax */}
+      <FloatingElements />
 
       {/* Navigation */}
       <Navbar />
