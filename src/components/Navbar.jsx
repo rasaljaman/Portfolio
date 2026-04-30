@@ -4,6 +4,7 @@ import { PencilDoodle } from './SVGDoodles';
 const NAV_ITEMS = [
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Services', href: '#services' },
   { label: 'Projects', href: '#projects' },
   { label: 'Security', href: '#cyber' },
   { label: 'Contact', href: '#contact' },

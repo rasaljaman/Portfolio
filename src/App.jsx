@@ -7,6 +7,7 @@ import CyberSection from './components/CyberSection';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingElements from './components/FloatingElements';
+import Services from './components/Services';
 
 export default function App() {
   return (
@@ -39,6 +40,14 @@ export default function App() {
         <div className="flex justify-center py-4 opacity-30">
           <svg width="200" height="20" viewBox="0 0 200 20">
             <path d="M10 10 Q50 18 100 10 T190 10" stroke="#8B8B8B" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeDasharray="6 4" />
+          </svg>
+        </div>
+
+        <Services />
+
+        <div className="flex justify-center py-4 opacity-30">
+          <svg width="200" height="20" viewBox="0 0 200 20">
+            <path d="M10 10 Q50 2 100 10 T190 10" stroke="#8B8B8B" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeDasharray="6 4" />
           </svg>
         </div>
 
