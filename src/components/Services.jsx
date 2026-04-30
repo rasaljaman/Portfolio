@@ -39,9 +39,8 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-20 flex justify-center w-full px-4 sm:px-8">
-      <NotebookPage className="max-w-4xl">
-        <div ref={ref} className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+    <NotebookPage id="services">
+      <div ref={ref} className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="mb-10 text-center">
             <h2 className="text-4xl md:text-5xl font-handwriting text-ink mb-4 relative inline-block">
               My Services
@@ -102,6 +101,5 @@ export default function Services() {
 
         </div>
       </NotebookPage>
-    </section>
   );
 }
