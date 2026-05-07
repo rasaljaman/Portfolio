@@ -183,7 +183,7 @@ function FlyingPlane({ uid, initAngle, initX, initY, circleDir, planeOpacity, si
 
 export default function FloatingElements() {
   return (
-    <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden" aria-hidden="true">
+    <div className="fixed inset-0 pointer-events-none z-[9999]" aria-hidden="true">
       {/* Plane 1 — main, top-left, flying right-downward */}
       <FlyingPlane uid="a" initAngle={30}  initX={15} initY={20} circleDir={1}  planeOpacity={0.75} sizeScale={1} />
       {/* Plane 2 — smaller, right side, flying left */}

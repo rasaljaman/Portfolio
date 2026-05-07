@@ -14,17 +14,18 @@ const PROJECTS = [
     rotate: '-2deg',
     icon: '🚀',
   },
-  {
-    title: 'Sura Rentals',
-    subtitle: 'College Project',
-    description:
-      'A comprehensive car rental system built as a college project. Incorporates secure user authentication, database management, and responsive UI components for seamless booking operations.',
-    tags: ['React', 'Full-stack', 'Vercel', 'Database'],
-    url: 'https://sura-rentals.vercel.app/',
-    noteColor: 'bg-stickynote-blue',
-    rotate: '1.5deg',
-    icon: '🚗',
-  },
+  // TEMPORARILY HIDDEN — uncomment to restore Sura Rentals
+  // {
+  //   title: 'Sura Rentals',
+  //   subtitle: 'College Project',
+  //   description:
+  //     'A comprehensive car rental system built as a college project. Incorporates secure user authentication, database management, and responsive UI components for seamless booking operations.',
+  //   tags: ['React', 'Full-stack', 'Vercel', 'Database'],
+  //   url: 'https://sura-rentals.vercel.app/',
+  //   noteColor: 'bg-stickynote-blue',
+  //   rotate: '1.5deg',
+  //   icon: '🚗',
+  // },
 ];
 
 function ProjectCard({ project, index, isVisible }) {

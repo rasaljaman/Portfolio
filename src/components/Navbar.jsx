@@ -78,6 +78,18 @@ export default function Navbar() {
                 {item.label}
               </a>
             ))}
+            <a
+              href="/resume.pdf"
+              download="Rasal_Jaman_Resume.pdf"
+              className="ml-3 flex items-center gap-1.5 bg-ink text-paper px-4 py-1.5 font-hand text-base font-semibold rounded-lg shadow-paper hover:shadow-sticky hover:bg-ink-blue transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Resume
+            </a>
           </div>
 
           {/* Mobile hamburger */}
@@ -109,6 +121,19 @@ export default function Navbar() {
                 {item.label}
               </a>
             ))}
+            <a
+              href="/resume.pdf"
+              download="Rasal_Jaman_Resume.pdf"
+              onClick={() => setMobileOpen(false)}
+              className="font-hand text-xl py-2 px-4 mt-1 text-paper bg-ink rounded-lg flex items-center gap-2 hover:bg-ink-blue transition-all"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Download Resume
+            </a>
           </div>
         </div>
       </nav>
