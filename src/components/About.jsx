@@ -41,7 +41,7 @@ export default function About() {
             <div className="tape">
               <div className="relative bg-white p-3 shadow-paper rounded-sm transform rotate-2 group-hover:rotate-0 transition-transform duration-500">
                 <img
-                  src="/3d-avatar.avif"
+                  src="/profile_pic2.png"
                   alt="Rasal Jaman"
                   className="w-48 h-48 md:w-56 md:h-56 object-cover rounded-sm"
                   loading="lazy"
