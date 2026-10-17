@@ -182,7 +182,7 @@ export default function Contact() {
           {/* Social links */}
           <div className="mt-10 pt-6 border-t-2 border-paper-line flex justify-center gap-8">
             <a
-              href="mailto:hello@rasaljaman.me"
+              href="mailto:hello@rasal.online"
               className="ink-link font-hand text-lg flex items-center gap-2"
               aria-label="Send email to Rasal Jaman"
             >
